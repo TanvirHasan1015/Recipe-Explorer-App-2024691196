@@ -46,4 +46,4 @@ About Me
 
 
 ## Optional extensions
-None.
+- Pull-to-refresh on the Home and Meal list screens
