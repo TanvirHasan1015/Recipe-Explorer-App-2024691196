@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'screens/main_screen.dart';
 
 // main() is where every Flutter app starts.
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Recipe Explorer',
       // ThemeData sets the colors. We will personalize it in Step 10.
       theme: ThemeData(colorSchemeSeed: Colors.orange, useMaterial3: true),
-      home: const HomeScreen(), // the first screen shown
+      home: const MainScreen(), // the first screen shown
     );
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/meal.dart';
+import '../services/favorites_storage.dart';
 import '../services/meal_api.dart';
 
 class MealDetailScreen extends StatefulWidget {
   final String mealId;   // used to ask the API for the full recipe
-  final String mealName; // shown in the app bar while loading
+  final String mealName; // shown in the app bar
 
   const MealDetailScreen({
     super.key,
@@ -18,9 +19,11 @@ class MealDetailScreen extends StatefulWidget {
 
 class _MealDetailScreenState extends State<MealDetailScreen> {
   final MealApi _api = MealApi();
+  final FavoritesStorage _favorites = FavoritesStorage();
 
-  Meal? _meal;            // null until the data arrives
+  Meal? _meal;               // null until the data arrives
   bool _isLoading = true;
+  bool _isFavorite = false;  // NEW: is the heart filled or empty?
   String? _errorMessage;
 
   @override
@@ -37,8 +40,11 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
     try {
       final result = await _api.fetchMealDetail(widget.mealId);
+      // NEW: ask the storage if this meal is already a favorite.
+      final isFav = await _favorites.isFavorite(widget.mealId);
       setState(() {
         _meal = result;
+        _isFavorite = isFav;
         _isLoading = false;
       });
     } catch (e) {
@@ -49,10 +55,38 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
     }
   }
 
+  // NEW: runs when the user taps the heart.
+  Future<void> _toggleFavorite() async {
+    final meal = _meal!;
+    if (_isFavorite) {
+      await _favorites.removeFavorite(meal.id); // already a favorite -> remove
+    } else {
+      await _favorites.addFavorite(meal);       // not a favorite -> add
+    }
+    // Flip the heart and redraw the screen.
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.mealName)),
+      appBar: AppBar(
+        title: Text(widget.mealName),
+        actions: [
+          // The heart shows only after the meal has loaded.
+          if (_meal != null)
+            IconButton(
+              icon: Icon(
+                // Filled heart if favorite, empty heart if not.
+                _isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.red,
+              ),
+              onPressed: _toggleFavorite,
+            ),
+        ],
+      ),
       body: _buildBody(),
     );
   }
@@ -77,7 +111,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
 
     final meal = _meal!; // "!" means: we know it is not null here
 
-    // SingleChildScrollView lets the screen scroll when the text is long.
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -92,7 +125,6 @@ class _MealDetailScreenState extends State<MealDetailScreen> {
           const SizedBox(height: 16),
           const Text('Ingredients',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          // This "for" shows one Text for each ingredient.
           for (final item in meal.ingredients) Text('• $item'),
           const SizedBox(height: 16),
           const Text('Instructions',
