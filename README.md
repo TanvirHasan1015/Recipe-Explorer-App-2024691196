@@ -32,13 +32,16 @@ Flutter 3.47.4 • channel stable • https://github.com/flutter/flutter.git
 4. The emulator needs an internet connection.
 
 ## Screenshots
-
+Home screen
 ![Home screen](screenshots/home.png)
 
+Meal detail
 ![Meal detail](screenshots/detail.png)
 
+Favorites
 ![Favorites](screenshots/favorites.png)
 
+About Me
 ![About me](screenshots/about_me.png)
 
 
