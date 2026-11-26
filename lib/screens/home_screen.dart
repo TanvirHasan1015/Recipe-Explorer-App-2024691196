@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/category.dart';
 import '../services/meal_api.dart';
 import 'meal_list_screen.dart';
+import 'about_screen.dart';
 
 // StatefulWidget because the screen CHANGES: loading -> data, or loading -> error.
 class HomeScreen extends StatefulWidget {
@@ -48,7 +49,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Recipe Explorer')),
+      appBar: AppBar(
+        title: const Text('Tanvir Kitchen'), // YOUR app name
+        actions: [
+          // The "i" icon opens the About screen.
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AboutScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: _buildBody(),
     );
   }

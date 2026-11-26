@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Recipe Explorer',
-      // ThemeData sets the colors. We will personalize it in Step 10.
-      theme: ThemeData(colorSchemeSeed: Colors.orange, useMaterial3: true),
-      home: const MainScreen(), // the first screen shown
+      title: 'Tanvir Kitchen', // YOUR app name (used by the system)
+      // ThemeData sets the colors of the whole app.
+      // colorSchemeSeed: ONE color, and Flutter makes all the other colors from it.
+      theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
+      home: const MainScreen(),
     );
   }
 }
