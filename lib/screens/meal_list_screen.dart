@@ -76,26 +76,30 @@ class _MealListScreenState extends State<MealListScreen> {
       );
     }
 
-    // A scrolling list of meals.
-    return ListView.builder(
-      padding: const EdgeInsets.all(8),
-      itemCount: _meals.length,
-      itemBuilder: (context, index) {
-        final meal = _meals[index];
-        return MealCard(
-          meal: meal,
-          // When the user taps a meal, open its detail screen.
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    MealDetailScreen(mealId: meal.id, mealName: meal.name),
-              ),
-            );
-          },
-        );
-      },
+    // A scrolling list of meals. Pulling it down loads the meals again.
+    return RefreshIndicator(
+      onRefresh: _loadMeals,
+      child: ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(8),
+        itemCount: _meals.length,
+        itemBuilder: (context, index) {
+          final meal = _meals[index];
+          return MealCard(
+            meal: meal,
+            // When the user taps a meal, open its detail screen.
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      MealDetailScreen(mealId: meal.id, mealName: meal.name),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

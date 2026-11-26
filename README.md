@@ -35,7 +35,7 @@ Flutter 3.47.4 • channel stable • https://github.com/flutter/flutter.git
 Home screen
 ![Home screen](screenshots/home.png)
 
-Meal detail
+Meal details
 ![Meal detail](screenshots/detail.png)
 
 Favorites

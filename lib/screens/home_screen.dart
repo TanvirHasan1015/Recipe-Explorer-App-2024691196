@@ -92,42 +92,48 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     // 3) Success -> grid of categories
-    return GridView.builder(
-      padding: const EdgeInsets.all(8),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // number of columns
-        crossAxisSpacing: 8,
-        mainAxisSpacing: 8,
-      ),
-      itemCount: _categories.length,
-      itemBuilder: (context, index) {
-        final category = _categories[index];
-        return Card(
-          child: InkWell(
-            onTap: () {
-              // Open the meal list and pass the category name.
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      MealListScreen(categoryName: category.name),
-                ),
-              );
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.network(category.imageUrl, height: 90),
-                const SizedBox(height: 8),
-                Text(
-                  category.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+    // RefreshIndicator: pulling the list down runs onRefresh (loads the data again).
+    return RefreshIndicator(
+      onRefresh: _loadCategories,
+      child: GridView.builder(
+        // Lets the user pull down even when everything fits on the screen.
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(8),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // number of columns
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+        ),
+        itemCount: _categories.length,
+        itemBuilder: (context, index) {
+          final category = _categories[index];
+          return Card(
+            child: InkWell(
+              onTap: () {
+                // Open the meal list and pass the category name.
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        MealListScreen(categoryName: category.name),
+                  ),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.network(category.imageUrl, height: 90),
+                  const SizedBox(height: 8),
+                  Text(
+                    category.name,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
