@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/category.dart';
 import '../services/meal_api.dart';
+import 'meal_list_screen.dart';
+import 'search_screen.dart';
 
 // StatefulWidget because the screen CHANGES: loading -> data, or loading -> error.
 class HomeScreen extends StatefulWidget {
@@ -53,7 +55,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Recipe Explorer')),
+      appBar: AppBar(
+        title: const Text('Recipe Explorer'),
+        actions: [
+          // TEMPORARY: opens Search. We remove this in Step 9.
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchScreen()),
+              );
+            },
+          ),
+        ],
+      ),
       body: _buildBody(),
     );
   }
@@ -98,7 +114,17 @@ class _HomeScreenState extends State<HomeScreen> {
         return Card(
           child: InkWell(
             // InkWell makes the card tappable. We will open the meal list in Step 5.
-            onTap: () {},
+            onTap: () {
+              // Navigator.push opens a NEW screen on top of this one.
+              // We pass the category name so the next screen knows what to load.
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      MealListScreen(categoryName: category.name),
+                ),
+              );
+            },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
