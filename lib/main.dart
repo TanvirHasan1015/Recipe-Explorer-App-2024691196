@@ -14,8 +14,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tanvir Kitchen', // YOUR app name (used by the system)
+      debugShowCheckedModeBanner: false, // hides the red DEBUG banner
       // ThemeData sets the colors of the whole app.
-      // colorSchemeSeed: ONE color, and Flutter makes all the other colors from it.
       theme: ThemeData(colorSchemeSeed: Colors.teal, useMaterial3: true),
       home: const MainScreen(),
     );

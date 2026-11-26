@@ -1,17 +1,46 @@
-# recipe_explorer
+# Tanvir Kitchen (Recipe Explorer)
 
-A new Flutter project.
+**Name:** Bhuiyan Tanvir Hasan
+**Student ID:** 2024691196
+**App name:** Tanvir Kitchen
 
-## Getting Started
+Final project for Mobile App Design (Flutter), Semester 2026-2.
+A recipe app that uses the TheMealDB API: browse categories, search meals,
+read full recipes, and save favorites on the device.
 
-This project is a starting point for a Flutter application.
+## Flutter version
+Flutter 3.47.4 • channel stable • https://github.com/flutter/flutter.git
 
-A few resources to get you started if this is your first Flutter project:
+## Features
+- Home screen with a grid of meal categories
+- Meal list for each category
+- Meal detail with image, category, area, ingredients and instructions
+- Search by meal name, with a "no meals found" message
+- Favorites saved on the device with shared_preferences (they stay after restarting the app)
+- Bottom navigation bar: Home, Search, Favorites
+- Loading indicator and error message with a Retry button
+- About screen with my name, student ID and photo
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## How to run
+1. Install Flutter and set up an Android emulator.
+2. Clone this repository.
+3. Open a terminal in the project folder and run:
+   ```
+   flutter pub get
+   flutter run
+   ```
+4. The emulator needs an internet connection.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+![Home screen](screenshots/home.png)
+
+![Meal detail](screenshots/detail.png)
+
+![Favorites](screenshots/favorites.png)
+
+![About me](screenshots/about_me.png)
+
+
+## Optional extensions
+None.

@@ -24,7 +24,7 @@ class AboutScreen extends StatelessWidget {
               'Your Full Name',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const Text('Student ID: Your Student ID'),
+            const Text('Student ID: 2024691196'),
             const SizedBox(height: 8),
             const Text('Tanvir Kitchen - Mobile App Design Final Project'),
           ],
