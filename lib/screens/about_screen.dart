@@ -21,7 +21,7 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 16),
             // CHANGE these two lines to your real name and student ID.
             const Text(
-              'Your Full Name',
+              'Bhuiyan Tanvir Hasan',
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const Text('Student ID: 2024691196'),
